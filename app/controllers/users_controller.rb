@@ -17,10 +17,31 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit # 更新
+    @user = User.find(user_params)
+#    if current_user != @user
+#      redirect_to root_path
+#    else 
+    render 'edit'
+  end
+
+  
+  def update
+    if current_user != @user
+      redirect_to root_path
+    elsif @user.update(user_params)
+      # 保存に成功した場合はトップページへリダイレクト
+      redirect_to @user , notice: 'プロフィールを編集しました'
+    else
+      # 保存に失敗した場合は編集画面へ戻す
+      render 'edit'
+    end
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password,
+    params.require(:user).permit(:name, :email, :password, :age, 
                                  :password_confirmation)
   end
 end
