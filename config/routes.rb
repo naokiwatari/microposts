@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'signup',  to: 'users#new'
 
   resources :users
+  resources :microposts
 end
 
   # The priority is based upon order of creation: first created -> highest priority.
