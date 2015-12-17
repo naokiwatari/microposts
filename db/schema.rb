@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20151216073920) do
 
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at"
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id"
+ActiveRecord::Schema.define(version: 20151215131652) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -33,5 +34,5 @@ ActiveRecord::Schema.define(version: 20151216073920) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-
+end
 end

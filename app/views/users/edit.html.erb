@@ -1,0 +1,27 @@
+<h1>Account Information</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @user do |f| %>
+      <%= render 'shared/error_messages', object: f.object %> 
+
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, :placeholder => "Enter password", class: 'form-control' %>
+      
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, 
+                           :placeholder => "Re-Enter password", class: 'form-control' %>
+
+      <%= f.label :age %>
+      <%= f.number_field :age, :placeholder => "Optional", class: 'form-control' %>
+
+      <%= f.submit "Update account information", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
