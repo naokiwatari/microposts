@@ -12,11 +12,14 @@
       <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.password_field :password, :placeholder => "Enter password", class: 'form-control' %>
+      
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation, 
+                           :placeholder => "Re-Enter password", class: 'form-control' %>
 
       <%= f.label :age %>
-      <%= f.number_field :age, class: 'form-control' %>
-
+      <%= f.number_field :age, :placeholder => "Optional", class: 'form-control' %>
 
       <%= f.submit "Update account information", class: "btn btn-primary" %>
     <% end %>
