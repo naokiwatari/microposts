@@ -34,6 +34,38 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+  
+  def followings
+    @title = "Followings"
+#    @user  = User.find(params[:id])
+#    @users = @user.following_users.show(params[:id])
+#    render 'show_follow'
+#  end
+    @user = User.find(params[:id])
+    if @user.id == session[:user_id]
+      @users = @user.following_users.order(created_at: :desc)
+      render 'show_follow'
+    else
+      redirect_to root_path
+    end
+  end
+
+
+  def followers
+    @title = "Followers"
+#    @user  = User.find(params[:id])
+#    @users = @user.follower_users.show(params[:id])
+#    render 'show_follow'
+#  end
+    @user = User.find(params[:id])
+    if @user.id == session[:user_id]
+      @users = @user.follower_users.order(created_at: :desc)
+      render 'show_follow'
+    else
+      redirect_to root_path
+    end
+  end
+
 
   private
 
