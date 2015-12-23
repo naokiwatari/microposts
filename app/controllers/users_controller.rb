@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-   before_action :signed_in_user, only: [:edit, :update]
-   before_action :correct_user, only: [:edit, :update]
-  
+  before_action :set_user, only: [:show, :edit, :update, :followings, :followers]
+  before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
   def show 
-   @user = User.find(params[:id])
    @microposts = @user.microposts.order(created_at: :desc)
   end
-  
+
   def new
     @user = User.new
   end
@@ -22,11 +22,9 @@ class UsersController < ApplicationController
   end
 
   def edit 
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
@@ -34,10 +32,9 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def followings
     @title = "Followings"
-    @user = User.find(params[:id])
     if @users = @user.following_users.order(created_at: :desc)
       render 'show_follow'
     else
@@ -45,10 +42,8 @@ class UsersController < ApplicationController
     end
   end
 
-
   def followers
     @title = "Followers"
-    @user = User.find(params[:id])
     if @users = @user.follower_users.order(created_at: :desc)
       render 'show_follow'
     else
@@ -59,15 +54,20 @@ class UsersController < ApplicationController
 
   private
 
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
-  
+
   def signed_in_user
     redirect_to signin_url, notice: "Please Sign in" unless logged_in?
   end
+
   def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_path) unless current_user == @user
+    # リダイレクトは root_path ではなく root_url を使う
+    redirect_to root_url, alsert: "Unauthorized Access" unless current_user == @user
   end
 end

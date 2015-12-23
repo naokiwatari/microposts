@@ -193,5 +193,9 @@ span.picture {
 #blank-list {
   list-style: none;
   text-align: left;
-  li { padding: 10px 0 0 0 }
+  li { padding: 10px; }
   } 
+  
+.stats .user_avatars img {
+  margin-bottom: 4px;
+}
