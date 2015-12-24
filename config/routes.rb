@@ -9,6 +9,13 @@ Rails.application.routes.draw do
   resources :microposts
   resources :sessions, only: [:new, :create, :destroy]
   resources :relationships, only: [:create, :destroy]
+  
+  resources :users do
+  member do
+    get :followings  # 複数形
+    get :followers
+  end
+end
 end
 
   # The priority is based upon order of creation: first created -> highest priority.
