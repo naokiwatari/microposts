@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show 
-   @microposts = @user.microposts.order(created_at: :desc)
+   @m = @user.microposts.order(created_at: :desc)
+   @microposts = @m.page params[:page]
   end
 
   def new
@@ -35,8 +36,9 @@ class UsersController < ApplicationController
 
   def followings
     @title = "Followings"
-    if @users = @user.following_users.order(created_at: :desc)
-      render 'show_follow'
+    if @u = @user.following_users.order(created_at: :desc)
+       @users = @u.page params[:page]
+       render 'show_follow'
     else
       redirect_to root_path
     end
@@ -44,8 +46,9 @@ class UsersController < ApplicationController
 
   def followers
     @title = "Followers"
-    if @users = @user.follower_users.order(created_at: :desc)
-      render 'show_follow'
+    if @u = @user.follower_users.order(created_at: :desc)
+       @users = @u.page params[:page]
+       render 'show_follow'
     else
       redirect_to root_path
     end
@@ -59,7 +62,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
 
   def signed_in_user
@@ -68,6 +71,7 @@ class UsersController < ApplicationController
 
   def correct_user
     # リダイレクトは root_path ではなく root_url を使う
-    redirect_to root_url, alsert: "Unauthorized Access" unless current_user == @user
+    redirect_to root_url, alert: "Unauthorized Access" unless current_user == @user
   end
+  
 end

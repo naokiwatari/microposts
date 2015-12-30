@@ -7,7 +7,10 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :age ,  presence: true, 
                     numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :age 
-
+  paginates_per 25
+  
+  mount_uploader :avatar, AvatarUploader
+  
   has_secure_password
   has_many :microposts
   has_many :following_relationships, class_name:  "Relationship",
@@ -32,4 +35,6 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following_users.include?(other_user)
   end
+  require 'carrierwave/orm/activerecord'
+  
 end

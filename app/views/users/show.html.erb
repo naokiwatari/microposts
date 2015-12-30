@@ -1,5 +1,5 @@
 <div class="row">
-  <aside class="col-md-4">
+  <aside class="col-md-3">
     <section class="user_info">
       <h1>
         <%= gravatar_for @user %>
@@ -8,13 +8,21 @@
      <%= render 'shared/stats' %>
     </section>
   </aside>
-  <div class="col-md-8">
+  <div class="col-md-9">
+    <%= page_entries_info @microposts %>
     <%= render 'follow_form' if logged_in? %>
     <% if @user.microposts.any? %>
       <h3>Microposts (<%= @user.microposts.count %>)</h3>
       <ol class="microposts">
         <%= render @microposts %>
       </ol>
+        <%= paginate @microposts %>
     <% end %>
+    
+    <% if @user.avatar? %>
+　　<%= image_tag @user.avatar.url %>
+　  <% else %>
+　　<%= image_tag 'noimage.gif' %>
+　  <% end %>
   </div>
 </div>
