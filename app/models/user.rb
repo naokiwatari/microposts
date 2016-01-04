@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
                     numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: :age 
   paginates_per 25
   
-  mount_uploader :avatar, AvatarUploader
   
   has_secure_password
   has_many :microposts

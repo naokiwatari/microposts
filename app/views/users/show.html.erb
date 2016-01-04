@@ -18,11 +18,5 @@
       </ol>
         <%= paginate @microposts %>
     <% end %>
-    
-    <% if @user.avatar? %>
-　　<%= image_tag @user.avatar.url %>
-　  <% else %>
-　　<%= image_tag 'noimage.gif' %>
-　  <% end %>
   </div>
 </div>
