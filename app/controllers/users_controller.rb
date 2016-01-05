@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def show 
-   @m = @user.microposts.order(created_at: :desc)
-   @microposts = @m.page params[:page]
+    @microposts = @user.microposts.order(created_at: :desc).page(params[:page])
   end
 
   def new
@@ -36,8 +35,7 @@ class UsersController < ApplicationController
 
   def followings
     @title = "Followings"
-    if @u = @user.following_users.order(created_at: :desc)
-       @users = @u.page params[:page]
+    if @users = @user.following_users.order(created_at: :desc).page(params[:page])
        render 'show_follow'
     else
       redirect_to root_path
@@ -46,8 +44,7 @@ class UsersController < ApplicationController
 
   def followers
     @title = "Followers"
-    if @u = @user.follower_users.order(created_at: :desc)
-       @users = @u.page params[:page]
+    if @users = @user.follower_users.order(created_at: :desc).page(params[:page])
        render 'show_follow'
     else
       redirect_to root_path
